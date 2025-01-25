@@ -1,14 +1,16 @@
-minute = int(input("Minutes ==> ").strip())
+minute = input("Minutes ==> ").strip()
 print(minute)
+minute = int(minute)
 
-second = int(input("Seconds ==> ").strip())
+second = input("Seconds ==> ").strip()
 print(second)
+second = int(second)
 
 mile = input("Miles ==> ").strip()
 print(mile)
 mile = float(mile)
 target_miles = input("Target Miles ==> ").strip()
-print(target_miles)
+print(target_miles, "\n")
 target_miles = float(target_miles)
 
 total_min = float((second/60) + minute)
