@@ -24,8 +24,16 @@ down_space = totalVertical - up_space
 
 print("\nBox:")
 print(character * width)
-print((character + " " * (width - 2) + character + "\n") * (up_space - 1) + (character + " " * (width - 2) + character))
-print(character + " " * left_space + str(width) + "x" + str(height) + " " * right_space + character)
-print((character + " " * (width - 2) + character + "\n") * (down_space - 1) + (character + " " * (width - 2) + character))
+
+
+upper_inner = (character + " " * (width - 2) + character + "\n") * up_space
+print(upper_inner, end='')
+
+dimension_line = character + " " * left_space + str(width) + "x" + str(height) + " " * right_space + character
+print(dimension_line)
+
+lower_inner = (character + " " * (width - 2) + character + "\n") * down_space
+print(lower_inner, end='')
+
 print(character * width)
- 
+
