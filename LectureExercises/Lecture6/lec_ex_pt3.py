@@ -13,4 +13,4 @@ elif first < 10 and second < 10:
 
 avg = (first + second) / 2
 
-print("{:.2f}".format(avg))
+print("Average is {:.2f}".format(avg))
