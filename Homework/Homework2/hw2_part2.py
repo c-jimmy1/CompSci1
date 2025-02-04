@@ -38,8 +38,8 @@ def decrypt(word):
 
 if __name__ == "__main__":
     # Ask the user for the word and convert it to the correct data type.
-    word = input("Enter a word => ").strip()
-    print(word)
+    word = input("Enter a string to encode ==> ").strip()
+    print(word, "\n")
 
     # Encrypt the word, then decrypt it, and check if the decrypted word is the same as the original word.
     encrypted_word = encrypt(word)

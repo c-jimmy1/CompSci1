@@ -31,7 +31,7 @@ if __name__ == "__main__":
     gumball_radius = float(gumball_radius)
 
     weekly_sales = input("Enter the weekly sales => ").strip()
-    print(weekly_sales)
+    print(weekly_sales, "\n")
     weekly_sales = int(weekly_sales)
 
     # Calculate the target sales, the number of gumballs on the edge, the side length of the machine, and the extra gumballs.
@@ -48,6 +48,6 @@ if __name__ == "__main__":
 
     # Print the results out to the user.
     print("The machine needs to hold {} gum balls along each edge.".format(gumballs_on_edge))
-    print("Total edge length of the machine is {:.2f} inches.".format(side_length))
+    print("Total edge length is {:.2f} inches.".format(side_length))
     print("Target sales were {}, but the machine will hold {} extra gum balls.".format(target_sales, extra_gumballs))
-    print("Wasted space is {:.2f} cubic inches with the target number of gum balls,\nor {:.2f} if you fill up the machine.".format(wasted_space_target, wasted_space_filled))
+    print("Wasted space is {:.2f} cubic inches with the target number of gum balls,\nor {:.2f} cubic inches if you fill up the machine.".format(wasted_space_target, wasted_space_filled))
