@@ -59,19 +59,19 @@ time3_5 = 29
 time4_5 = 28
 time5_5 = 30
 
-skew1 = calc_skew(name_1,time1_1,time2_1,time3_1,time4_1,time5_1)
+skew1 = calc_skew(time1_1,time2_1,time3_1,time4_1,time5_1)
 print("{0}'s running times have a skew of {1:.2f}".format(name_1,skew1))
 
-skew2 = calc_skew(name_2,time1_2,time2_2,time3_2,time4_2,time5_2)
+skew2 = calc_skew(time1_2,time2_2,time3_2,time4_2,time5_2)
 print("{0}'s running times have a skew of {1:.2f}".format(name_2,skew2))
 
-skew3 = calc_skew(name_3,time1_3,time2_3,time3_3,time4_3,time5_3)
+skew3 = calc_skew(time1_3,time2_3,time3_3,time4_3,time5_3)
 print("{0}'s running times have a skew of {1:.2f}".format(name_3,skew3))
 
-skew4 = calc_skew(name_4,time1_4,time2_4,time3_4,time4_4,time5_4)
+skew4 = calc_skew(time1_4,time2_4,time3_4,time4_4,time5_4)
 print("{0}'s running times have a skew of {1:.2f}".format(name_4,skew4))
 
-skew5 = calc_skew(name_5,time1_5,time2_5,time3_5,time4_5,time5_5)
+skew5 = calc_skew(time1_5,time2_5,time3_5,time4_5,time5_5)
 print("{0}'s running times have a skew of {1:.2f}".format(name_5,skew5))
 
 print()
