@@ -11,7 +11,7 @@ Version: 1
 def simulation_loop(turns, name, battle_freq):
     curr_turn = 0
     curr_coords = (75, 75)
-    print("Starting simluation, turn {} {} at {}".format(curr_turn, name, curr_coords))
+    print("Starting simulation, turn {} {} at {}".format(curr_turn, name, curr_coords))
     curr_turn += 1
 
     record = []
@@ -19,11 +19,10 @@ def simulation_loop(turns, name, battle_freq):
     while curr_turn <= turns:
         curr_direction = input("What direction does Piki walk? => ").strip()
         print(curr_direction)
-        print(curr_turn)
         curr_coords = move_pokemon(curr_coords, curr_direction, 5)
         if curr_turn % battle_freq == 0:
             print("Turn {}, {} at {}".format(curr_turn, name, curr_coords))
-            opp_type = input("What type of Pokemon do you want to meet (W)ater, (G)round? => ").strip()
+            opp_type = input("What type of Pokemon do you meet (W)ater, (G)round? => ").strip()
             print(opp_type)
             if opp_type.upper() == "W":
                 curr_coords = move_pokemon(curr_coords, curr_direction, 1)
