@@ -9,7 +9,7 @@ from syllables import find_num_syllables
 
 if __name__ == "__main__":
     paragraph = input("Enter a paragraph => ").strip()
-    print(paragraph, '\n')
+    print(paragraph)
 
     # Split the paragraph into words and count the number of periods in the paragraph.
     words = paragraph.split()
@@ -51,5 +51,5 @@ if __name__ == "__main__":
     print('Here are the hard words in this paragraph:')
     print(hard_words)
     print('Statistics: ASL:{:.2f} PHW:{:.2f}% ASYL:{:.2f}'.format(ASL, PHW, ASYL))
-    print('Readbility index (GFRI): {:.2f}'.format(GFRI))
-    print('Readbility index (FKRI): {:.2f}'.format(FKRI))
+    print('Readability index (GFRI): {:.2f}'.format(GFRI))
+    print('Readability index (FKRI): {:.2f}'.format(FKRI))

@@ -11,14 +11,16 @@ Version: 1
 def simulation_loop(turns, name, battle_freq):
     curr_turn = 0
     curr_coords = (75, 75)
-    print("Starting simluation turn {} {} at {}".format(curr_turn, name, curr_coords))
+    print("Starting simluation, turn {} {} at {}".format(curr_turn, name, curr_coords))
     curr_turn += 1
 
     record = []
     
     while curr_turn <= turns:
-        curr_direction = input("Which direction do you want to move (U)p, (D)own, (L)eft, (R)ight? => ").strip()
+        curr_direction = input("What direction does Piki walk? => ").strip()
         print(curr_direction)
+        print(curr_turn)
+        curr_coords = move_pokemon(curr_coords, curr_direction, 5)
         if curr_turn % battle_freq == 0:
             print("Turn {}, {} at {}".format(curr_turn, name, curr_coords))
             opp_type = input("What type of Pokemon do you want to meet (W)ater, (G)round? => ").strip()
@@ -29,19 +31,17 @@ def simulation_loop(turns, name, battle_freq):
                 record.append('Win')
             elif opp_type.upper() == "G":
                 if curr_direction.upper() == "U":
-                    curr_coords = move_pokemon(curr_coords, "D", 10)
+                    curr_coords = move_pokemon(curr_coords, "N", 10)
                 elif curr_direction.upper() == "D":
-                    curr_coords = move_pokemon(curr_coords, "U", 10)
+                    curr_coords = move_pokemon(curr_coords, "S", 10)
                 elif curr_direction.upper() == "L":
-                    curr_coords = move_pokemon(curr_coords, "R", 10)
+                    curr_coords = move_pokemon(curr_coords, "W", 10)
                 elif curr_direction.upper() == "R":
-                    curr_coords = move_pokemon(curr_coords, "L", 10)
+                    curr_coords = move_pokemon(curr_coords, "E", 10)
                 print("{} runs away to {}".format(name, curr_coords))
                 record.append('Lose')
             else:
                 record.append('No Pokemon')
-        else:
-            curr_coords = move_pokemon(curr_coords, curr_direction, 5)
         curr_turn += 1
     
     print("{} ends up at {}, Record: {}".format(name, curr_coords, record))
@@ -52,14 +52,14 @@ It returns the new coordinates of pikachu after moving in the specified directio
 and must be within the bounds of the grid. Any invalid direction will be ignored'''
 def move_pokemon(coords, direction, steps):
     x, y = coords
-    if direction.upper() == "U":
-        y += steps
-    elif direction.upper() == "D":
-        y -= steps
-    elif direction.upper() == "L":
+    if direction.upper() == "N":
         x -= steps
-    elif direction.upper() == "R":
+    elif direction.upper() == "S":
         x += steps
+    elif direction.upper() == "W":
+        y -= steps
+    elif direction.upper() == "E":
+        y += steps
     return (x, y)
 
 if __name__ == "__main__":
