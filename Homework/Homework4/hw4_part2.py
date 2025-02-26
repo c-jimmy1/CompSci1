@@ -11,9 +11,8 @@ def get_daily_pos(state_abbv, week_data):
     and returns the average daily positives per 100K population for that state."""
 
     for state in week_data:
+        # If the state abbreviation matches the input
         if state[0] == state_abbv:
-            # If the state abbreviation matches the input
-
             # Get all the covid positive days for the state
             positive_days = state[2:9]
 
@@ -22,6 +21,9 @@ def get_daily_pos(state_abbv, week_data):
             total_population = state[1]
             avg_daily_per_100k = (avg_daily_positives / total_population) * 100000
             return avg_daily_per_100k
+        
+    # If the state abbreviation is not found in the week data, return None
+    return None
 
 def get_pct_pos(state_abbv, week_data):
     """output the average daily percentage of tests that are positive over the week, 
@@ -38,7 +40,10 @@ def get_pct_pos(state_abbv, week_data):
             # Calculate the average daily percentage of tests that are positive
             avg_daily_positives = (sum(positive_days) / (sum(positive_days) + sum(negative_days))) * 100
             return avg_daily_positives
-            
+    
+    # If the state abbreviation is not found in the week data, return None
+    return None          
+  
 def get_quarantine(week_data):
     """Output the list of state abbreviations, alphabetically by two-letter abbreviation,
     of travel quaratine states for the given week.
@@ -61,6 +66,7 @@ def get_quarantine(week_data):
 
     # Sort the list of quarantine states alphabetically by two-letter abbreviation
     quarantine_states.sort()
+    
     return quarantine_states
 
 def get_highest(week_data):
@@ -100,6 +106,7 @@ def input_loop():
         # Get the week data from the util function
         week_data = hw4_util.part2_get_week(week_number)
         if not week_data:
+            print("No data for that week")
             continue
 
         # Get the user request for the type of data they want to see
@@ -108,18 +115,29 @@ def input_loop():
 
         # Process the user request accordingly
         if user_request.lower() == "daily":
+            # Get the state abbreviation from the user, and calculate the average daily positives per 100K population
+            # if the state is not found, print an error message
             state_abbv = input("Enter the state: ").strip()
             print(state_abbv)
             daily_pos = get_daily_pos(state_abbv.upper(), week_data)
-            print("Average daily positives per 100K population: {:.1f}".format(daily_pos))
+            if daily_pos is None:
+                print("State {} not found".format(state_abbv))
+            else:
+                print("Average daily positives per 100K population: {:.1f}".format(daily_pos))
 
         elif user_request.lower() == "pct":
+            # Get the state abbreviation from the user, and calculate the average daily percentage of tests that are positive
+            # if the state is not found, print an error message
             state_abbv = input("Enter the state: ").strip()
             print(state_abbv)
             daily_pos_pct = get_pct_pos(state_abbv.upper(), week_data)
-            print("Average daily positive percent: {:.1f}".format(daily_pos_pct))
+            if daily_pos_pct is None:
+                print("State {} not found".format(state_abbv))
+            else:
+                print("Average daily positive percent: {:.1f}".format(daily_pos_pct))
 
         elif user_request.lower() == "quar":
+            # Get the list of quarantine states
             quar_states = get_quarantine(week_data)
             print("Quarantine states:")
             hw4_util.print_abbreviations(quar_states)
@@ -129,6 +147,8 @@ def input_loop():
             highest_state_abbv, highest_daily_avg = get_highest(week_data)
             print("State with highest infection rate is {}".format(highest_state_abbv))
             print("Rate is {:.1f} per 100,000 people".format(highest_daily_avg))
-            
+        
+        else:
+            print("Unrecognized request")
 if __name__ == "__main__":
     input_loop()
