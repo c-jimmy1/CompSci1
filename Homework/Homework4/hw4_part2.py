@@ -102,7 +102,8 @@ def input_loop():
         week_number = input("...\nPlease enter the index for a week: ").strip()
         print(week_number)
         week_number = int(week_number)
-
+        if week_number < 0:
+            break
         # Get the week data from the util function
         week_data = hw4_util.part2_get_week(week_number)
         if not week_data:
