@@ -26,7 +26,7 @@ def get_daily_pos(state_abbv, week_data):
 def get_pct_pos(state_abbv, week_data):
     """output the average daily percentage of tests that are positive over the week, 
     accurate to the nearest tenth of a percent."""
-    
+
     for state in week_data:
         if state[0] == state_abbv:
             # If the state abbreviation matches the input
@@ -67,10 +67,28 @@ def get_highest(week_data):
     """Output the two-letter abbreviation of the state that had the highest daily average
     number of positive cases per 100,000 people over the given week, and output this average
     number, accurate to the nearest tenth"""
+    
+    # Initialize the highest daily average number of positive cases per 100,000 people
+    highest_daily_avg = 0
+    highest_state_abbv = ""
+
+    # Iterate through all the states
+    for state in week_data:
+        state_abbv = state[0]
+        daily_pos = get_daily_pos(state_abbv, week_data)
+
+        # Update the highest daily average number of positive cases per 100,000 people
+        if daily_pos > highest_daily_avg:
+            highest_daily_avg = daily_pos
+            highest_state_abbv = state_abbv
+
+    return highest_state_abbv, highest_daily_avg
+
 
 def input_loop():
     """This function will prompt the user for a week number and a request type.
     It will then call the appropriate function to handle the request."""
+
     week_number = 0
 
     # While the week number is not less than 0, keep requesting new week numbers from the user and processing the data
@@ -108,9 +126,9 @@ def input_loop():
 
         elif user_request.lower() == "high":
             get_highest(week_data)
+            highest_state_abbv, highest_daily_avg = get_highest(week_data)
+            print("State with highest infection rate is {}".format(highest_state_abbv))
+            print("Rate is {:.1f} per 100,000 people".format(highest_daily_avg))
             
-
-
-        
 if __name__ == "__main__":
     input_loop()
