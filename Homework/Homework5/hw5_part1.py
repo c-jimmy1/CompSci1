@@ -8,7 +8,7 @@ Version: 1
 import hw5_util
 
 def get_nbrs(row, col, grid):
-    """Returns a list of neighboring coordinates (row, col) in the grid."""
+    """Returns a list of neighboring coordinates (row, col) in the grid"""
     neighbors = []
     if row > 0:
         neighbors.append((row - 1, col))  # Above
@@ -22,7 +22,7 @@ def get_nbrs(row, col, grid):
 
 
 def grid_input_loop():
-    """Prompts the user to input a grid number until a valid grid number is entered."""
+    """Prompts the user to input a grid number until a valid grid number is entered"""
     while True:
         n = input('Enter a grid index less than or equal to 3 (0 to end): ').strip()
         print(n)
@@ -36,7 +36,7 @@ def print_grid(grid_num, response, grid):
     if response.upper() == 'Y':
         print('Grid {}'.format(grid_num))
         for row in grid:
-            print(" ".join("{:4d}".format(num) for num in row))
+            print("".join("{:4d}".format(num) for num in row))
 
 
 def print_neighbors(start_locations, grid):
@@ -46,6 +46,36 @@ def print_neighbors(start_locations, grid):
         neighbors = get_nbrs(row, col, grid)
         printpt = 'Neighbors of ' + str(location) + ': ' + ' '.join(map(str, neighbors))
         print(printpt)
+
+def check_path(path, grid):
+    """Validates a path on the grid by checking if the consecutive coordinates are neighbors
+    Compute total downward and upward movement in the path"""
+    for i in range(len(path) - 1):
+        current = path[i]
+        nxt = path[i+1]
+        if nxt not in get_nbrs(current[0], current[1], grid):
+            print('Path: invalid step from {} to {}'.format(current, nxt))
+            return
+
+    # If we got here, the path is valid
+    print('Valid path')
+    downward = 0
+    upward = 0
+
+    # Get the elevation value at the starting coordinate
+    prev_val = grid[path[0][0]][path[0][1]]
+    # Walk through the path starting at the second coordinate
+    for coord in path[1:]:
+        curr_val = grid[coord[0]][coord[1]]
+        if curr_val < prev_val:
+            downward += prev_val - curr_val
+        elif curr_val > prev_val:
+            upward += curr_val - prev_val
+        prev_val = curr_val
+
+    print("Downward " + str(downward))
+    print("Upward " + str(upward))
+            
     
 if __name__ == "__main__":
     # Get the grid number from the user
@@ -66,4 +96,7 @@ if __name__ == "__main__":
     start_locations = hw5_util.get_start_locations(grid_num)
     print_neighbors(start_locations, grid)
     
+    # Get the path associated with the grid number and check if the path is valid
+    path = hw5_util.get_path(grid_num)
+    check_path(path, grid)
     
