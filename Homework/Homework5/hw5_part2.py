@@ -110,31 +110,27 @@ def format_path(path):
     """
     Formats the path a list of row, col tuples so that 5 locations are printed per line
     """
-    result = ""
-    i = 0
-    while i < len(path):
-        line = ""
-        # 5 coordinates per line
-        for j in range(i, min(i + 5, len(path))):
-            line += "({0}, {1}) ".format(path[j][0], path[j][1])
-        result += line + "\n"
-        i += 5
-    return result
+    result = []
+    for i in range(0, len(path), 5):
+        line = " ".join("({0}, {1})".format(row, col) for row, col in path[i:i+5]) + " "
+        result.append(line)
+    
+    return "\n".join(result)
 
 
 def print_path_grid(path_grid_counts):
     """
     Prints the path grid counts with a fixed width for each cell. A dot is printed for cells not used.
     """
+    
     for row in path_grid_counts:
-        formatted_cells = []
+        final_string = " "
         for count in row:
             if count == 0:
-                formatted_cells.append("{:>2}".format('.'))
+                final_string += " . "
             else:
-                formatted_cells.append("{:>2}".format(count))
-        print(" ".join(formatted_cells))
-
+                final_string += "{:2}".format(count) + " "
+        print(final_string.rstrip())
 
 if __name__ == "__main__":
     # Get the grid number from the user
