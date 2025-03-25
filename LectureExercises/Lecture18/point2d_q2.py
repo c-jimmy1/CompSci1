@@ -18,7 +18,19 @@ class Point2d(object):
     def dominates(self, o):
         return self.x >= o.x and self.y >= o.y
     
- 
+    def __str__(self):
+        return '({},{})'.format(self.x, self.y)
+    
+    def __sub__(self, o):
+        return Point2d(self.x-o.x, self.y-o.y)
+    
+    def __mul__(self, factor):
+        return Point2d(self.x*factor, self.y*factor)
+    
+    def __eq__(self, o):
+        return self.x == o.x and self.y == o.y
+    
+
 if __name__ == "__main__":
     p = Point2d(0,4)
     q = Point2d(5,10)
@@ -36,15 +48,11 @@ if __name__ == "__main__":
     print('p dominates r:', p.dominates(r))
     print('r dominates p:', r.dominates(p))
     print('r dominates q:', r.dominates(q))
-    
 
-    '''
     # Exercise 2:  __str__ tests
     print("As a string p is " + str(p))
     print("As a string r is " + str(r))
-    '''
 
-    '''
     # Exercise 2:  other tests
     print('p - q =', str(p-q) )
     print('q - r =', str(q-r) )
@@ -56,4 +64,3 @@ if __name__ == "__main__":
     print('p == t', p==t )
     print('t == u', t==u )
     print('t == v', t==v )
-    '''
