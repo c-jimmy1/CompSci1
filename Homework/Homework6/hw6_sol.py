@@ -46,14 +46,20 @@ def remove_stop_words(word_list):
     
     return word_list
 
-def calc_avg_word_length(word):
-    pass
+def calc_avg_word_length(words):
+    """Calculate the avg word length of the words in the list."""
+    total_length = 0
+    for word in words:
+        total_length += len(word)
+
+    avg_length = float(total_length) / len(words)
+    return avg_length
 
 if __name__ == "__main__":
-    file1 = "ex1.txt" # input('Enter the first file to analyze and compare ==> ').strip()
+    file1 = "cat_in_the_hat.txt" # input('Enter the first file to analyze and compare ==> ').strip()
     print(file1)
     
-    file2 = "ex2.txt" # input('Enter the second file to analyze and compare ==> ').strip()
+    file2 = "pulse_morning.txt" # input('Enter the second file to analyze and compare ==> ').strip()
     print(file2)
     
     max_sep = input("Enter the maximum separation between words in a pair ==> ").strip()
@@ -67,4 +73,12 @@ if __name__ == "__main__":
     file2_words = remove_stop_words(file2_words)
     
     print(file1_words)
+    print(file2_words)
+    
+    avg_word_length1 = calc_avg_word_length(set(file1_words))
+    avg_word_length2 = calc_avg_word_length(file2_words)
+    
+    print(f"Average word length of file 1: {avg_word_length1:.2f}")
+    print(f"Average word length of file 2: {avg_word_length2:.2f}")
+    
     
