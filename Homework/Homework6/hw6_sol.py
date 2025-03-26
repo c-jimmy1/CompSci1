@@ -12,7 +12,7 @@ def parse_clean_file(file):
     Reads a file and returns a list of words with non-letter characters removed
     and all letters converted to lowercase.
     """
-    with open(file, 'r') as f:
+    with open(file, 'r', encoding='utf-8') as f:
         text = f.read()
 
     words = text.split()
@@ -40,11 +40,11 @@ def remove_stop_words(word_list):
     """If a word is in the stop_words set, remove it from the list."""
     stop_words = set(parse_clean_file("stop.txt"))
 
+    new_word_list = []
     for word in word_list:
-        if word in stop_words:
-            word_list.remove(word)
-    
-    return word_list
+        if word not in stop_words:
+            new_word_list.append(word)
+    return new_word_list
 
 def calc_avg_word_length(words):
     """Calculate the avg word length of the words in the list."""
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     print(file1_words)
     print(file2_words)
     
-    avg_word_length1 = calc_avg_word_length(set(file1_words))
+    avg_word_length1 = calc_avg_word_length(file1_words)
     avg_word_length2 = calc_avg_word_length(file2_words)
     
     print(f"Average word length of file 1: {avg_word_length1:.2f}")
