@@ -46,6 +46,9 @@ def remove_stop_words(word_list):
     
     return word_list
 
+def calc_avg_word_length(word):
+    pass
+
 if __name__ == "__main__":
     file1 = "ex1.txt" # input('Enter the first file to analyze and compare ==> ').strip()
     print(file1)
