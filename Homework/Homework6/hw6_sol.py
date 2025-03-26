@@ -63,7 +63,8 @@ def calc_ratio_distinct(words):
     distinct_words = set(words)
     return len(distinct_words) / len(words)
 
-def len_words(words):
+
+def print_len_words(words):
     """For each word length starting from 1, find the set of words with that length.
     Print the length and num of different words with that length, and at most 6 of these words
     If there are 6 or fewer, print them all. But if there are more than 6, print first 3 and last 3, alphabetically.
@@ -96,7 +97,37 @@ def len_words(words):
                 first_three = ' '.join(length_words[:3])
                 last_three = ' '.join(length_words[-3:])
                 print("{:4d}:{:4d}: {:s} ... {:s}".format(length, count, first_three, last_three))
+
         
+def print_word_pairs(words, max_sep):
+    """
+    Given a list of words and a maximum separation `max_sep`,
+    return a set of (word1, word2) pairs (in alphabetical order)
+    that occur within `max_sep` positions of each other in the list.
+    """
+    pairs = set()
+    n = len(words)
+    
+    # For each word, look up to max_sep words ahead
+    for i in range(n):
+        # j goes from i+1 up to i+max_sep (inclusive), but not beyond n
+        for j in range(i+1, min(n, i + max_sep + 1)):
+            pair = tuple(sorted((words[i], words[j])))
+            pairs.add(pair)
+            
+    sorted_pairs = sorted(pairs)
+
+    print("  {:d} distict pairs".format(len(sorted_pairs)))
+
+    for p in sorted_pairs[:5]:
+        print("  {:s} {:s}".format(p[0], p[1]))
+        
+    print("  ...")
+    
+    for p in sorted_pairs[-5:]:
+        print("  {:s} {:s}".format(p[0], p[1]))
+        
+
 def process_document(file):
     """Read a file, clean it, remove stop words, and process it."""
     print("Evaluating document {}".format(file))
@@ -109,8 +140,11 @@ def process_document(file):
     ratio_distinct = calc_ratio_distinct(words)
     print("2. Ratio of distinct words to total words: {:.2f}".format(ratio_distinct))
         
-    print("3. Word sets for document {}".format(file))
-    len_words(words)
+    print("3. Word sets for document {}:".format(file))
+    print_len_words(words)
+    
+    print("4. Word pairs for document {}".format(file))
+    print_word_pairs(words, max_sep)
     
 
 if __name__ == "__main__":
