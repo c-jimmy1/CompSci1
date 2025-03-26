@@ -40,7 +40,6 @@ def parse_clean_file(file):
 def remove_stop_words(word_list):
     """If a word is in the stop_words set, remove it from the list."""
     stop_words = set(parse_clean_file("stop.txt"))
-
     new_word_list = []
     for word in word_list:
         if word not in stop_words:
@@ -89,6 +88,7 @@ def get_len_words(words):
         
         # Print the length, count, and words according to the requirements
         if length not in word_dict:
+            word_dict[length] = set()
             print("{:4d}:{:4d}:".format(length, 0))
         else:
             if count <= 6:
@@ -99,6 +99,7 @@ def get_len_words(words):
                 print("{:4d}:{:4d}: {:s} ... {:s}".format(length, count, first_three, last_three))
 
     return word_dict
+        
         
 def get_word_pairs(words, max_sep):
     """
@@ -135,8 +136,9 @@ def get_word_pairs(words, max_sep):
     
     return distinct_sorted_pairs
 
+
 def process_document(file):
-    """Read a file, clean it, remove stop words, and process it."""
+    """Read a file, clean it, remove stop words, and process it. Handles all the printing and stats for each document."""
     print("Evaluating document {}".format(file))
     words = parse_clean_file(file)
     words = remove_stop_words(words)
@@ -153,6 +155,25 @@ def process_document(file):
     print("4. Word pairs for document {}".format(file))
     pairs = get_word_pairs(words, max_sep)
     
+    return words, avg_word_length, ratio_distinct, lengths, pairs
+
+def jaccard_similarity(length_sets, length_sets2):
+    """Given two dicts of sets, calculate the Jaccard similarity for each corresponding set in the dicts."""
+    
+    # Get the set of all lengths that appear in either dict
+    all_lengths = set(length_sets.keys()).union(set(length_sets2.keys()))
+    
+    # Calculate Jaccard similarities for corresponding sets
+    jaccard_list = []
+    for length in sorted(all_lengths):
+        set1 = length_sets.get(length, set())
+        set2 = length_sets2.get(length, set())
+        intersection = set1.intersection(set2)
+        union = set1.union(set2)
+        jaccard = len(intersection) / len(union) if union else 0
+        jaccard_list.append(jaccard)
+    
+    return jaccard_list
 
 if __name__ == "__main__":
     file1 = "cat_in_the_hat.txt" # input('Enter the first file to analyze and compare ==> ').strip()
@@ -165,9 +186,26 @@ if __name__ == "__main__":
     print(max_sep)
     max_sep = int(max_sep)
     
-    process_document(file1)
+    words1, avg_word_length1, ratio_distinct1, lengths1, pairs1 = process_document(file1)
     print()
-    process_document(file2)
+    words2, avg_word_length2, ratio_distinct2, lengths2, pairs2 = process_document(file2)
     
+    # Summary Comparison
+    print('\nSummary comparison')
     
+    if avg_word_length1 > avg_word_length2:
+        print("1. {} on average uses longer words than {}".format(file1, file2))
+    else:
+        print("1. {} on average uses longer words than {}".format(file2, file1))
+        
+    overall_jaccard = len(set(words1).intersection(set(words2))) / len(set(words1).union(set(words2)))
     
+    print('2. Overall word use similarity: {:.3f}'.format(overall_jaccard))
+
+    print('3. Word use similarity by length:')
+    similarities = jaccard_similarity(lengths1, lengths2)
+    for i, sim in enumerate(similarities):
+        print('{:4d}: {:.4f}'.format(i+1, sim))
+        
+    jaccard_similarity_pairs = len(set(pairs1).intersection(set(pairs2))) / len(set(pairs1).union(set(pairs2)))
+    print('4. Word pair similarity: {:.4f}'.format(jaccard_similarity_pairs))
