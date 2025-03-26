@@ -64,7 +64,7 @@ def calc_ratio_distinct(words):
     return len(distinct_words) / len(words)
 
 
-def print_len_words(words):
+def get_len_words(words):
     """For each word length starting from 1, find the set of words with that length.
     Print the length and num of different words with that length, and at most 6 of these words
     If there are 6 or fewer, print them all. But if there are more than 6, print first 3 and last 3, alphabetically.
@@ -98,14 +98,15 @@ def print_len_words(words):
                 last_three = ' '.join(length_words[-3:])
                 print("{:4d}:{:4d}: {:s} ... {:s}".format(length, count, first_three, last_three))
 
+    return word_dict
         
-def print_word_pairs(words, max_sep):
+def get_word_pairs(words, max_sep):
     """
     Given a list of words and a maximum separation `max_sep`,
     return a set of (word1, word2) pairs (in alphabetical order)
     that occur within `max_sep` positions of each other in the list.
     """
-    pairs = set()
+    pairs = []
     n = len(words)
     
     # For each word, look up to max_sep words ahead
@@ -113,20 +114,26 @@ def print_word_pairs(words, max_sep):
         # j goes from i+1 up to i+max_sep (inclusive), but not beyond n
         for j in range(i+1, min(n, i + max_sep + 1)):
             pair = tuple(sorted((words[i], words[j])))
-            pairs.add(pair)
-            
-    sorted_pairs = sorted(pairs)
-
-    print("  {:d} distict pairs".format(len(sorted_pairs)))
-
-    for p in sorted_pairs[:5]:
-        print("  {:s} {:s}".format(p[0], p[1]))
+            pairs.append(pair)
         
-    print("  ...")
+    distinct_sorted_pairs = sorted(set(pairs))
+
+    print("  {:d} distict pairs".format(len(distinct_sorted_pairs)))
     
-    for p in sorted_pairs[-5:]:
-        print("  {:s} {:s}".format(p[0], p[1]))
-        
+    if len(distinct_sorted_pairs) > 10:
+        for p in distinct_sorted_pairs[:5]:
+            print("  {:s} {:s}".format(p[0], p[1]))
+        print("  ...")
+        for p in distinct_sorted_pairs[-5:]:
+            print("  {:s} {:s}".format(p[0], p[1]))
+    else:
+        for p in distinct_sorted_pairs:
+            print("  {:s} {:s}".format(p[0], p[1]))
+    
+    # Print the ratio of distinct word pairs to total word pairs
+    print("5. Ratio of distinct word pairs to total: {:.3f}".format(len(distinct_sorted_pairs)/len(pairs)))
+    
+    return distinct_sorted_pairs
 
 def process_document(file):
     """Read a file, clean it, remove stop words, and process it."""
@@ -141,10 +148,10 @@ def process_document(file):
     print("2. Ratio of distinct words to total words: {:.2f}".format(ratio_distinct))
         
     print("3. Word sets for document {}:".format(file))
-    print_len_words(words)
+    lengths = get_len_words(words)
     
     print("4. Word pairs for document {}".format(file))
-    print_word_pairs(words, max_sep)
+    pairs = get_word_pairs(words, max_sep)
     
 
 if __name__ == "__main__":
