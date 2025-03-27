@@ -119,7 +119,7 @@ def get_word_pairs(words, max_sep):
         
     distinct_sorted_pairs = sorted(set(pairs))
 
-    print("  {:d} distict pairs".format(len(distinct_sorted_pairs)))
+    print("  {:d} distinct pairs".format(len(distinct_sorted_pairs)))
     
     if len(distinct_sorted_pairs) > 10:
         for p in distinct_sorted_pairs[:5]:
@@ -139,7 +139,7 @@ def get_word_pairs(words, max_sep):
 
 def process_document(file):
     """Read a file, clean it, remove stop words, and process it. Handles all the printing and stats for each document."""
-    print("Evaluating document {}".format(file))
+    print("\nEvaluating document {}".format(file))
     words = parse_clean_file(file)
     words = remove_stop_words(words)
     
@@ -147,7 +147,7 @@ def process_document(file):
     print("1. Average word length: {:.2f}".format(avg_word_length))    
     
     ratio_distinct = calc_ratio_distinct(words)
-    print("2. Ratio of distinct words to total words: {:.2f}".format(ratio_distinct))
+    print("2. Ratio of distinct words to total words: {:.3f}".format(ratio_distinct))
         
     print("3. Word sets for document {}:".format(file))
     lengths = get_len_words(words)
@@ -176,10 +176,10 @@ def jaccard_similarity(length_sets, length_sets2):
     return jaccard_list
 
 if __name__ == "__main__":
-    file1 = "cat_in_the_hat.txt" # input('Enter the first file to analyze and compare ==> ').strip()
+    file1 = input('Enter the first file to analyze and compare ==> ').strip()
     print(file1)
     
-    file2 = "pulse_morning.txt" # input('Enter the second file to analyze and compare ==> ').strip()
+    file2 = input('Enter the second file to analyze and compare ==> ').strip()
     print(file2)
     
     max_sep = input("Enter the maximum separation between words in a pair ==> ").strip()
@@ -187,7 +187,6 @@ if __name__ == "__main__":
     max_sep = int(max_sep)
     
     words1, avg_word_length1, ratio_distinct1, lengths1, pairs1 = process_document(file1)
-    print()
     words2, avg_word_length2, ratio_distinct2, lengths2, pairs2 = process_document(file2)
     
     # Summary Comparison
