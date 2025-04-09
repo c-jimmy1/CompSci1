@@ -56,21 +56,33 @@ def closest2(lists):
             variable = difference
             x1 = first
             x2 = second
-            
+
     return x1, x2
 L1 = [ 15.1, -12.1, 5.4, 11.8, 17.4, 4.3, 6.9 ]
 
+print(closest1(L1))
+print(closest2(L1))
 
-if __name__ == "__main__":
-    randomList = []
-    for x in range(10000):
-        randomList.append(random.uniform(0.0, 1000.0))
-    s1 = time.time()
-    (i0,i1) = closest1(randomList)
-    t1 = time.time() - s1
-    print('time for first one:', t1)
+L2 = []
 
-    s2 = time.time()
-    (j0,j1) = closest2(randomList)
-    t2 = time.time() - s2
-    print('time for second one:', t2)
+print(closest1(L2))
+print(closest2(L2))
+
+L3 = [2,2,3,3]
+
+print(closest1(L3))
+print(closest2(L3))
+
+# if __name__ == "__main__":
+#     randomList = []
+#     for x in range(10000):
+#         randomList.append(random.uniform(0.0, 1000.0))
+#     s1 = time.time()
+#     (i0,i1) = closest1(randomList)
+#     t1 = time.time() - s1
+#     print('time for first one:', t1)
+
+#     s2 = time.time()
+#     (j0,j1) = closest2(randomList)
+#     t2 = time.time() - s2
+#     print('time for second one:', t2)
