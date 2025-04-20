@@ -24,7 +24,6 @@ def print_state(field):
     print("\nActive Tourists:")
     for t in field.active_tourists:
         print(t)
-    print()
 
 def main():
     json_file = input("Enter the json file name for the simulation => ").strip()
@@ -43,7 +42,9 @@ def main():
 
     # run the turns
     for turn in range(1, 6):
-        print(f"Turn: {turn}")
+        if turn > 1:
+            print()
+        print(f"\nTurn: {turn}")
 
         # 1) grow berries
         field.grow()
@@ -70,7 +71,6 @@ def main():
             else:
                 j += 1
 
-        # 4) end‑of‑turn report
         print_state(field)
 
 if __name__ == "__main__":
