@@ -38,7 +38,7 @@ class BerryField:
                 elif (r, c) in tourist_pos:
                     char = f"{'T':>4}"
                 line.append(char)
-            rows.append("".join(line))
+            rows.append("".join(line).rstrip())
         return "\n".join(rows)
 
     def grow(self):

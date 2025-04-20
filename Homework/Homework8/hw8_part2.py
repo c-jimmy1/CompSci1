@@ -14,11 +14,13 @@ from Tourist import Tourist
 def print_state(field):
     """Print the current state of the field, including berry count and active bears/tourists."""
     print(f"Field has {field.berry_total()} berries.")
-    print(field, "\n")
+    print(field)
+    print()
 
     print("Active Bears:")
     for b in field.active_bears:
         print(b)
+        
     print("\nActive Tourists:")
     for t in field.active_tourists:
         print(t)
@@ -70,7 +72,6 @@ def main():
 
         # 4) end‑of‑turn report
         print_state(field)
-        print()
 
 if __name__ == "__main__":
     main()
