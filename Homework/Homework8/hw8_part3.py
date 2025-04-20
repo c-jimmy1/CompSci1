@@ -23,7 +23,6 @@ def print_state(field: BerryField):
     print("\nActive Tourists:")
     for t in field.active_tourists:
         print(t)
-    print()
 
 def main():
     json_file = input("Enter the json file name for the simulation => ").strip()

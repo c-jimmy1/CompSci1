@@ -72,6 +72,9 @@ def main():
                 j += 1
 
         print_state(field)
+        
+        if turn == 5:
+            print()
 
 if __name__ == "__main__":
     main()
