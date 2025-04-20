@@ -11,7 +11,7 @@ class Tourist:
         self.col = col
         self.turns_without_bear = 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f"Tourist at ({self.row},{self.col}), "
                 f"{self.turns_without_bear} turns without seeing a bear.")
 

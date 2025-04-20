@@ -26,7 +26,7 @@ class Bear:
                 return t
         return None
 
-    def __str__(self):
+    def __str__(self) -> str:
         """String representation of the bear."""
         s = f"Bear at ({self.row},{self.col}) moving {self.dir}"
         if self.asleep_turns:

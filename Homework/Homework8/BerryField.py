@@ -1,17 +1,17 @@
 """
-BerryField class for HW 8 – Bears & Berries
-Author: Jimmy Chen
+BerryField class for HW 8 - Bears & Berries
+Author: Jimmy Chen
 """
 
 class BerryField:
     # adjacent cells (8-neighbors)
     ADJ = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-    def __init__(self, grid, bears=None, tourists=None):
+    def __init__(self, grid, bears, tourists):
         self.grid = grid
         self.n = len(grid)
-        self.active_bears = bears or []
-        self.active_tourists = tourists or []
+        self.active_bears = bears
+        self.active_tourists = tourists
 
     def in_bounds(self, r, c):
         """Check if the given row and column are within the bounds of the grid."""
@@ -21,26 +21,25 @@ class BerryField:
         """Calculate the total number of berries in the grid."""
         return sum(sum(row) for row in self.grid)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return a string representation of the BerryField."""
         bear_pos = {(b.row, b.col) for b in self.active_bears}
         tourist_pos = {(t.row, t.col) for t in self.active_tourists}
 
-        lines = []
+        rows = []
         for r in range(self.n):
-            row = []
+            line = []
             for c in range(self.n):
+                char = f"{self.grid[r][c]:>4}"
                 if (r, c) in bear_pos and (r, c) in tourist_pos:
-                    cell = "X"
+                    char = f"{'X':>4}"
                 elif (r, c) in bear_pos:
-                    cell = "B"
+                    char = f"{'B':>4}"
                 elif (r, c) in tourist_pos:
-                    cell = "T"
-                else:
-                    cell = str(self.grid[r][c])
-                row.append(f"{cell:>4}")
-            lines.append("".join(row))
-        return "\n".join(lines)
+                    char = f"{'T':>4}"
+                line.append(char)
+            rows.append("".join(line))
+        return "\n".join(rows)
 
     def grow(self):
         """Grow the berries in the field according to the rules:
